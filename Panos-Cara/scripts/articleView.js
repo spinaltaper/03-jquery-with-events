@@ -79,7 +79,7 @@ articleView.handleMainNav = function() {
 
     // Clicking any .tab element should hide all the .tab-content sections, and then reveal the single .tab-content section that is associated with the clicked .tab element.
     // So: You need to dynamically build a selector string with the correct ID, based on the data available to you on the .tab element that was clicked.
-    $('section').hide();
+    $('.tab-content').hide();
     console.log(id);
     $(`#${id}`).show();
     $(`#${id}`).children().show();
@@ -95,6 +95,7 @@ articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();
   $('.read-on').on('click', function(){
     $(this).siblings('.article-body').show();
+    $(this).siblings().children('p').show();
     $(this).hide();
   })
 
