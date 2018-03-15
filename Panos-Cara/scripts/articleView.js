@@ -4,6 +4,7 @@
 let articleView = {};
 
 articleView.populateFilters = function() {
+  $('article.template').hide();
   $('article').each(function() {
     // REVIEW: We can declare several variables at once and assign their values later when using let. Keep in mind that we cannot do this with const.
     let authorName, category, optionTag;
@@ -38,16 +39,14 @@ articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     // REVIEW: Inside this function, "this" is the element that triggered the event handler function we are defining. "$(this)" is using jQuery to select that element (analogous to event.target that we have seen before), so we can chain jQuery methods onto it.
     if ($(this).val()) {
+      console.log($(this).val());
       // TODO: If the <select> menu was changed to an option that has a value, we first need to hide all the articles, and then show just the ones that match for the author that was selected.
       // Use an "attribute selector" to find those articles, and fade them in for the reader.
-      this.addClass('articleShow');
-      $('article').css('visibility', 'hidden');
-      $('article.articleShow').css('visibility', 'visible');
-      this.removeClass('articleShow');
+      $("article").hide();
+      $(`[dataAuthor = "${$(this).val()}"]`).show(); //template literal
     } else {
       // TODO: If the <select> menu was changed to an option that is blank, we should first show all the articles, except the one article we are using as a template.
-      $('article').css('visibility', 'visible');
-      $('article.template').css('visibility', 'hidden');
+
     }
     $('#category-filter').val('');
   });
@@ -90,7 +89,7 @@ articleView.setTeasers = function() {
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
-articleView.populateFilters();
-articleView.handleAuthorFilter();
-articleView.handleCategoryFilter();
+  articleView.populateFilters();
+  articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
 })
